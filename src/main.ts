@@ -7,7 +7,7 @@ import {
 } from "@solana/spl-token";
 
 const connection = new web3.Connection("http://127.0.0.1:8899");
-// const connection = new web3.Connection(web3.clusterApiUrl("devnet"));
+// const connection = new web3.Connection(web3.clusterApiUrl("devnet"),"finalized");
 
 const main = async () => {
   const pair = await initializeKeypair(connection);
