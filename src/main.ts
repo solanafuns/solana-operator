@@ -4,6 +4,7 @@ import {
   createMint,
   TOKEN_PROGRAM_ID,
   getOrCreateAssociatedTokenAccount,
+  mintTo,
 } from "@solana/spl-token";
 
 const connection = new web3.Connection("http://127.0.0.1:8899");
@@ -31,15 +32,31 @@ const main = async () => {
     pair.publicKey
   );
   console.log(`my account : ${myAccount.address}`);
-
-  const myAccountAgain = await getOrCreateAssociatedTokenAccount(
+  await mintTo(
     connection,
     pair,
     address,
+    myAccount.address,
+    pair.publicKey,
+    100
+  );
+
+  const oneAccount = await getOrCreateAssociatedTokenAccount(
+    connection,
+    pair,
+    new web3.PublicKey("Egc1viDzjDCJGD3TPm4jdZsLDRm3jKQSzbegRg4E6akA"),
     pair.publicKey
   );
 
-  console.log(`my account : ${myAccountAgain.address}`);
+  console.log(`one account : ${oneAccount.address}`);
+  await mintTo(
+    connection,
+    pair,
+    address,
+    oneAccount.address,
+    pair.publicKey,
+    100
+  );
 };
 
 main()
